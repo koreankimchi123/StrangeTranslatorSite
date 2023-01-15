@@ -1,0 +1,74 @@
+body{
+    background-color:#F5F0BB;
+}
+
+#navbar-share{
+    font-weight: 200;
+    font-size: 12pt;
+    color:#496b6d;
+}
+
+.container{
+    padding-top: 10px;
+}
+
+.sub-container{
+    margin-top:30px;
+    width: 100%;
+    height: 300px;
+    background-color: #fff;
+    border: 2px solid gray;
+    border-radius: 20px;
+    position: relative;
+}
+#navbar1{
+    background-color: #90C8AC;
+    font-weight:bold;   
+}
+#navbar-title{
+    color:#304a4c;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 13pt;
+    font-weight: bold;
+}
+#getTrans{
+    position:absolute;
+    width:100%;
+    bottom:0px;
+    border-radius: 0px;
+    border-bottom-left-radius:17px;
+    border-bottom-right-radius:17px;
+    height:20%;
+    background-color: #C4DFAA;
+    border-color: #C4DFAA;
+    color:white;
+    font-weight:bold;
+}
+.form-floating{
+    height:90%;
+}
+.floatingTextarea2{
+    width:100%;
+    height:85%;
+    padding: 15px;
+    border-radius: 0px;
+    border-top-left-radius:19px;
+    border-top-right-radius:19px;
+    resize: none;
+    border: 0px solid #ccc;
+    background-color: white;
+    color: #73A9AD;
+}
+textarea::placeholder {
+    color: #aecdcf;
+  }
+textarea:focus {
+    outline: none;
+}
+
+.bottomnav{
+    color:gray;
+    margin-bottom:10px;
+    font-weight: 100;
+    text-align: center;
+}

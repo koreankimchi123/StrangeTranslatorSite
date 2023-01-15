@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>유용한 번역기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link href="/public/strangetranslator.css" rel="stylesheet"/>
+</head>
+<body>
+    <nav class="navbar" id="navbar1">
+        <div class="container-fluid">
+          <a class="navbar-brand" id="navbar-title" href="#">
+            <img src="https://img1.daumcdn.net/thumb/C176x176/?fname=https://blog.kakaocdn.net/dn/bDYBQp/btq4Cr18pxP/6Dt6BK31HC0xhgZVCc3CP1/img.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            유용한 번역기
+          </a>
+          <div style="float: right">
+            <a class="navbar-brand" id="navbar-share" href="https://www.instagram.com/hym2n_dev/">
+                Instagram
+              </a>
+              <a class="navbar-brand" id="navbar-share" href="#" onclick="about()">
+                About
+              </a>
+              <a class="navbar-brand" id="navbar-share"  href="#" onclick="share()">
+                Share
+              </a>
+        </div>
+        </div>
+      </nav>
+    <div class="container">
+        <div class="sub-container">
+            <div class="form-floating" >
+                <textarea class="floatingTextarea2" placeholder="여기에 문장을 입력하라." id="translate-source"></textarea>
+              </div>
+            <button class="btn btn-primary" id="getTrans" type="button" onclick="getTranslate()">번역하다</button>
+        </div>
+        <div class="sub-container">
+            <div class="form-floating" >
+                <textarea class="floatingTextarea2" placeholder="그러면 이곳에 결과가 표시 된 다."id="translate-result"></textarea>
+              </div>
+            <button class="btn btn-primary" id="getTrans" type="button" onclick="copy()">복사하다</button>
+        </div>
+
+        <br/><br/><br/>
+
+
+    </div>
+    <br/>
+    <div style="font-size:7pt" class="bottomnav">
+        Contact: chm031313@gmail.com<br/>
+        <p style="font-size:7pt">Copytight 2022. HyeonMin Choi All rights reserved.</p>
+    </div>
+    
+
+    <div class="modal" tabindex="-1"id="about-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">About</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="modalhide()"></button>
+          </div>
+          <div class="modal-body">
+            <p>'유용한 번역기'는 말의 어감을 약간 다르게 바꿔주는 번역 프로젝트로, 불완전한 문장 등을 입력하면 다른 형태의 문장으로 재창조하여 출력해주는 웹 서비스입니다. 불완전하거나 어색한 문장을 바꾸려는 경우, 말투를 바꿔 나인지 못알아보게 하려는 경우, 논문을 프로그램에 안걸리게 표절해야 하는 경우 등에 유용하게 쓰일 수 있습니다! 지금 체험해보세요!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="modalhide()">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <script>
+        function getTranslate(){
+          $("#translate-result").val("결과 불러오는중...");
+            let source = $("#translate-source").val();
+            console.log(source);
+            $.ajax({
+                url: "http://hym2ndev.kro.kr:3000/translateAPI",
+                data:{"query":source},
+                type:"POST",
+                success: function(json){
+                    console.log(json.message.result.translatedText);
+                    $("#translate-result").val(json.message.result.translatedText);
+                },
+                error: function(err){
+                    $("#translate-result").val("끔찍한 오류: 일일 API 허용치를 모두 사용하였습니다. \n또는 서버가 바쁜 관계로 나중에 시도해주세요.\n오류 신고는 인스타 DM으로 문의부탁드립니다.\n@hym2n_dev");
+                    if(source == '' || source == ' ' || source == '  ') $("#translate-result").val("아무 문장도 입력되지 않았습니다.");
+                }
+            })
+        }
+        function about(){
+          $('#about-modal').modal('show')
+        }
+        function copy(){
+            let copyText = $("#translate-result").val();
+            const textarea = document.createElement('textarea');
+            textarea.textContent = copyText;
+            document.body.append(textarea);
+
+            textarea.select();
+            document.execCommand("copy");
+            alert("클립보드에 복사되었습니다.");
+            textarea.remove();
+        }
+        function share(){
+            let copyText = 'http://hym2ndev.kro.kr:3000/strangetranslate';
+            const textarea = document.createElement('textarea');
+            textarea.textContent = copyText;
+            document.body.append(textarea);
+
+            textarea.select();
+            document.execCommand("copy");
+            alert("주소가 클립보드에 복사되었습니다!\n링크를 통해 사이트를 공유해보세요!");
+            textarea.remove();
+        }
+        function modalhide(){
+          $('#about-modal').modal('hide')
+        }
+
+        
+        
+        
+    </script>
+</body>
+</html>
+
