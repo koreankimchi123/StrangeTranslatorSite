@@ -31,6 +31,6 @@ app.use('/public', express.static(__dirname + '/public'));
 const mainRouter = require("./router/mainRouter");
 app.use("/", mainRouter);
 
-app.listen(3000,function(req, res){
+app.listen(3001,function(req, res){
     console.log("서버가 실행되고 있습니다.");
 })

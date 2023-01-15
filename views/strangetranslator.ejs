@@ -76,17 +76,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
     <script>
-        function getTranslate(){
+        function getTranslate2(){
           $("#translate-result").val("결과 불러오는중...");
             let source = $("#translate-source").val();
             console.log(source);
             $.ajax({
-                url: "http://hym2ndev.kro.kr:3000/translateAPI",
+                url: "http://localhost:3001/translateAPI",
                 data:{"query":source},
                 type:"POST",
                 success: function(json){
                     console.log(json.message.result.translatedText);
                     $("#translate-result").val(json.message.result.translatedText);
+                },
+                error: function(err){
+                    $("#translate-result").val("끔찍한 오류: 일일 API 허용치를 모두 사용하였습니다. \n또는 서버가 바쁜 관계로 나중에 시도해주세요.\n오류 신고는 인스타 DM으로 문의부탁드립니다.\n@hym2n_dev");
+                    if(source == '' || source == ' ' || source == '  ') $("#translate-result").val("아무 문장도 입력되지 않았습니다.");
+                }
+            })
+        }
+        function getTranslate(){
+          $("#translate-result").val("결과 불러오는중...");
+            let source = $("#translate-source").val();
+            console.log(source);
+            $.ajax({
+                url: "http://localhost:3001/translateAPI2",
+                data:{"query":source},
+                type:"POST",
+                success: function(text){
+                    console.log(text);
+                    $("#translate-result").val(text);
                 },
                 error: function(err){
                     $("#translate-result").val("끔찍한 오류: 일일 API 허용치를 모두 사용하였습니다. \n또는 서버가 바쁜 관계로 나중에 시도해주세요.\n오류 신고는 인스타 DM으로 문의부탁드립니다.\n@hym2n_dev");
