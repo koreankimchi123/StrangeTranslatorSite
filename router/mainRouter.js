@@ -109,7 +109,7 @@ let ids = ['LWny4rdaLPHYO2EkHgVX','T7yPwwFKVtpuGSX1SA0v','rftew1xkEQX0x4LXYFhE',
 let pws = ['Op5NP4DkAT','JGiuYbJ5Ck','f0EY3J0B36','rJpgov6bZh','uow9_wSyC4']
 let idRotate = 0;
 
-router.post('/translateAPI', function (req, res) {
+router.post('/translateAPI1', function (req, res) {
     client_id = ids[idRotate];
     client_secret = pws[idRotate];
     console.log("id is now: " + idRotate);
